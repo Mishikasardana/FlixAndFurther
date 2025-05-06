@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login or Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hero-bg {
+            background-image: url('https://assets.nflxext.com/ffe/siteui/vlv3/ab4b0b22-2ddf-4d48-ae88-c201ae0267e2/0efe6360-4f6d-4b10-beb6-81e0762cfe81/IN-en-20231030-popsignuptwoweeks-perspective_alpha_website_large.jpg'); 
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+    <div class='h-screen w-full hero-bg'>
+        <header class='max-w-6xl mx-auto flex items-center justify-between p-4'>
+            <a href="/">
+                <img src='website_logo-removebg-preview.png' alt='logo' class='w-52' />
+            </a>
+        </header>
+
+        <div class='flex justify-center items-center mt-10 mx-3'>
+            <div class='w-full max-w-md p-8 space-y-6 bg-black/60 rounded-lg shadow-md'>
+                <h1 class='text-center text-white text-2xl font-bold mb-4'>Login or Sign Up</h1>
+
+                <form id="loginForm" class='space-y-4' onsubmit="handleLogin(event)">
+                    <div>
+                        <label for='loginEmail' class='text-sm font-medium text-gray-300 block'>
+                            Email
+                        </label>
+                        <input
+                            type='email'
+                            class='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring'
+                            placeholder='you@example.com'
+                            id='loginEmail'
+                            name='loginEmail'
+                            value=''
+                            onchange="setLoginEmail(event.target.value)"
+                        />
+                    </div>
+
+                    <div>
+                        <label for='loginPassword' class='text-sm font-medium text-gray-300 block'>
+                            Password
+                        </label>
+                        <input
+                            type='password'
+                            class='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring'
+                            placeholder='••••••••'
+                            id='loginPassword'
+                            name='loginPassword'
+                            value=''
+                            onchange="setLoginPassword(event.target.value)"
+                        />
+                    </div>
+
+                    <button
+                        class='w-full py-2 bg-red-600 text-white font-semibold rounded-md
+                        hover:bg-red-700
+                    '
+                        disabled='false'
+                    >
+                        Login
+                    </button>
+                </form>
+
+                <hr class="border-gray-700 my-6" />
+
+                <h2 class='text-center text-white text-xl font-bold mb-4'>Sign Up</h2>
+
+                <form id="signupForm" class='space-y-4' onsubmit="handleSignup(event)">
+                    <div>
+                        <label for='signupEmail' class='text-sm font-medium text-gray-300 block'>
+                            Email
+                        </label>
+                        <input
+                            type='email'
+                            class='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring'
+                            placeholder='you@example.com'
+                            id='signupEmail'
+                            name='signupEmail'
+                            value=''
+                            onchange="setSignupEmail(event.target.value)"
+                        />
+                    </div>
+
+                    <div>
+                        <label for='signupPassword' class='text-sm font-medium text-gray-300 block'>
+                            Password
+                        </label>
+                        <input
+                            type='password'
+                            class='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring'
+                            placeholder='••••••••'
+                            id='signupPassword'
+                            name='signupPassword'
+                            value=''
+                            onchange="setSignupPassword(event.target.value)"
+                        />
+                    </div>
+
+                    <button
+                        class='w-full py-2 bg-green-600 text-white font-semibold rounded-md
+                        hover:bg-green-700
+                    '
+                        disabled='false'
+                    >
+                        Sign Up
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let loginEmail = "";
+        let loginPassword = "";
+        let signupEmail = "";
+        let signupPassword = "";
+        let isLoggingIn = false;
+        let isSigningUp = false;
+        const landingPageUrl = "landing1.html";
+
+        const setLoginEmail = (value) => {
+            loginEmail = value;
+        };
+
+        const setLoginPassword = (value) => {
+            loginPassword = value;
+        };
+
+        const setSignupEmail = (value) => {
+            signupEmail = value;
+        };
+
+        const setSignupPassword = (value) => {
+            signupPassword = value;
+        };
+
+        const handleLogin = (e) => {
+            e.preventDefault();
+            isLoggingIn = true;
+            document.querySelector('#loginForm button').innerText = "Logging In...";
+            // Simulate a login request
+            setTimeout(() => {
+                isLoggingIn = false;
+                document.querySelector('#loginForm button').innerText = "Login";
+                const loginSuccess = true;
+                if (loginSuccess) {
+                    window.location.href = landingPageUrl;
+                } else {
+                    alert("Login failed. Please check your credentials.");
+                }
+            }, 2000);
+        };
+
+        const handleSignup = (e) => {
+            e.preventDefault();
+            isSigningUp = true;
+            document.querySelector('#signupForm button').innerText = "Signing Up...";
+            // Simulate a signup request
+            setTimeout(() => {
+                isSigningUp = false;
+                document.querySelector('#signupForm button').innerText = "Sign Up";
+                const signupSuccess = true;
+                if (signupSuccess) {
+                    alert("Sign up successful!");
+                    window.location.href = landingPageUrl;
+                } else {
+                    alert("Sign up failed. Please try again.");
+                }
+            }, 2000);
+        };
+    </script>
+</body>
+</html>

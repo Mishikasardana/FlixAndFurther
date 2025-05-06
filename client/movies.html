@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies - FlixAndFurther</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #8a2be2;
+            --primary-dark: #7026b9;
+            --secondary: #ff7b00;
+            --dark: #0d0c1d;
+            --darker: #080718;
+            --text: #ffffff;
+            --text-muted: #b3b3b3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8, 7, 24, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo img {
+            width: 150px;
+            height: auto;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            position: relative;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover:after,
+        .nav-item.active:after {
+            width: 100%;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item:hover {
+            color: var(--primary);
+        }
+
+        /* Profile */
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .profile-container:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-pic {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            object-fit: cover;
+        }
+
+        .profile-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: 30px;
+            padding: 10px 40px 10px 15px;
+            color: var(--text);
+            width: 200px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* Header Banner */
+        .movies-header {
+            position: relative;
+            height: 50vh;
+            margin-top: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://i.imgur.com/SyaSJnR.jpg') center/cover no-repeat;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            max-width: 800px;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .header-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, white, #b3b3b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-desc {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: var(--text-muted);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 30px 5%;
+            background: linear-gradient(to bottom, rgba(8, 7, 24, 1), var(--dark));
+        }
+
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .filter-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .filter-dropdown {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+        }
+
+        .filter-dropdown:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .filter-tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tag:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tag-close {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .filter-tag:hover .tag-close {
+            color: var(--text);
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-btn {
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .view-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+        }
+
+        /* Movies Grid */
+        .movies-container {
+            padding: 20px 5% 50px;
+        }
+
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .movie-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            height: 350px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .movie-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            vertical-align: middle;
+        }
+
+        .movie-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 80px 20px 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            transition: all 0.3s ease;
+        }
+
+        .movie-card:hover .movie-overlay {
+            padding-bottom: 30px;
+        }
+
+        .movie-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .movie-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .movie-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .star-icon {
+            color: #ffd700;
+        }
+
+        .movie-genre {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .watch-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 0;
+            border-radius: 6px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .movie-card:hover .watch-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .watch-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Movie List View */
+        .movies-list {
+            display: none; /* Hide by default, show when list view is active */
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .movie-list-item {
+            display: flex;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .movie-list-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .list-poster {
+            width: 150px;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .list-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .list-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .list-info {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .list-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .list-actions {
+            margin-top: auto;
+            display: flex;
+            gap: 15px;
+        }
+
+        .list-btn {
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .watch-now-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .watch-now-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .add-list-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .add-list-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .page-btn.active {
+            background: var(--primary);
+        }
+
+        .page-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker);
+            padding: 60px 5% 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .header-title {
+                font-size: 2.5rem;
+            }
+            
+            .filter-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .view-toggle {
+                margin-top: 20px;
+                align-self: flex-end;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .search-container, .nav-links {
+                display: none;
+            }
+            
+            .movies-header {
+                height: 40vh;
+            }
+            
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .movies-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .movie-list-item {
+                flex-direction: column;
+            }
+            
+            .list-poster {
+                width: 100%;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 1.8rem;
+            }
+            
+            .movies-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            }
+            
+            .list-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .pagination {
+                gap: 5px;
+            }
+            
+            .page-btn {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="website_logo-removebg-preview.png" alt="FlixAndFurther Logo">
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search movies...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        
+        <ul class="nav-links">
+            <li class="nav-item"><a href="new_landing.html">Home</a></li>
+            <li class="nav-item active">Movies</li>
+            <li class="nav-item"><a href="series.html">Series</a></li>        </ul>
+        
+        <div class="profile-container">
+            <img class="profile-pic" src="website_logo-removebg-preview.png" alt="Profile">
+            <span class="profile-text">Profile</span>
+            <i class="fas fa-caret-down"></i>
+        </div>
+    </nav>
+
+    <!-- Header Banner -->
+    <section class="movies-header">
+        <div class="header-content">
+            <h1 class="header-title">Explore Our Movie Collection</h1>
+            <p class="header-desc">Discover thousands of movies across all genres, from classics to the latest releases.</p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <div class="filter-group">
+                <span class="filter-label">Genre:</span>
+                <select class="filter-dropdown">
+                    <option value="all">All Genres</option>
+                    <option value="action">Action</option>
+                    <option value="comedy">Comedy</option>
+                    <option value="drama">Drama</option>
+                    <option value="horror">Horror</option>
+                    <option value="scifi">Sci-Fi</option>
+                    <option value="romance">Romance</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Year:</span>
+                <select class="filter-dropdown">
+                    <option value="all">All Years</option>
+                    <option value="2020">2020s</option>
+                    <option value="2010">2010s</option>
+                    <option value="2000">2000s</option>
+                    <option value="1990">1990s</option>
+                    <option value="older">Older</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Rating:</span>
+                <select class="filter-dropdown">
+                    <option value="all">All Ratings</option>
+                    <option value="9">9+</option>
+                    <option value="8">8+</option>
+                    <option value="7">7+</option>
+                    <option value="6">6+</option>
+                    <option value="5">5+</option>
+                </select>
+            </div>
+
+            <div class="view-toggle">
+                <button class="view-btn active" id="grid-view">
+                    <i class="fas fa-th"></i> Grid
+                </button>
+                <button class="view-btn" id="list-view">
+                    <i class="fas fa-list"></i> List
+                </button>
+            </div>
+        </div>
+
+        <div class="filter-tags">
+            <div class="filter-tag">
+                Drama <i class="fas fa-times tag-close"></i>
+            </div>
+            <div class="filter-tag">
+                2020+ <i class="fas fa-times tag-close"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Movies Container -->
+    <section class="movies-container">
+        <!-- Grid View -->
+        <div class="movies-grid">
+            <div class="movie-card">
+                <img src="img/1.jpeg" alt="Movie" class="movie-poster">
+                <div class="movie-overlay">
+                    <h3 class="movie-title">Her</h3>
+                    <div class="movie-info">
+                        <span>2013</span>
+                        <div class="movie-rating">
+                            <i class="fas fa-star star-icon"></i> 8.0
+                        </div>
+                    </div>
+                    <div class="movie-genre">Romance, Sci-Fi</div>
+                    <button class="watch-btn">Watch Now</button>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="img/2.jpeg" alt="Movie" class="movie-poster">
+                <div class="movie-overlay">
+                    <h3 class="movie-title">Star Wars</h3>
+                    <div class="movie-info">
+                        <span>1977</span>
+                        <div class="movie-rating">
+                            <i class="fas fa-star star-icon"></i> 8.6
+                        </div>
+                    </div>
+                    <div class="movie-genre">Action, Adventure, Fantasy</div>
+                    <button class="watch-btn">Watch Now</button>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="img/3.jpg" alt="Movie" class="movie-poster">
+                <div class="movie-overlay">
+                    <h3 class="movie-title">Storm</h3>
+                    <div class="movie-info">
+                        <span>2022</span>
+                        <div class="movie-rating">
+                            <i class="fas fa-star star-icon"></i> 7.5
+                        </div>
+                    </div>
+                    <div class="movie-genre">Action, Thriller</div>
+                    <button class="watch-btn">Watch Now</button>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="img/4.jpg" alt="Movie" class="movie-poster">
+                <div class="movie-overlay">
+                    <h3 class="movie-title">Inception</h3>
+                    <div class="movie-info">
+                        <span>2010</span>
+                        <div class="movie-rating">
+                            <i class="fas fa-star star-icon"></i> 8.8
+                        </div>
+                    </div>
+                    <div class="movie-genre">Action, Sci-Fi, Thriller</div>
+                    <button class="watch-btn">Watch Now</button>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="img/5.jpg" alt="Movie" class="movie-poster">
+                <div class="movie-overlay">
+                    <h3 class="movie-title">The Dark Knight</h3>
+                    <div class="movie-info">
+                        <span>2008</span>
+                        <div class="movie-rating">
+                            <i class="fas fa-star star-icon"></i> 9.0
+                        </div>
+                    </div>
+                    <div class="movie-genre">Action, Crime, Drama</div>
+                    <button class="watch-btn">Watch Now</button>
+                </div>
+            </div>
+            <!-- Additional Movies -->
+            <div class="movie-card">
+                <img src="https://i.imgur.com/uwGMvyX.jpg" alt="Movie" class="movie-poster">
+                <div class="movie-overlay">
+                    <h3 class="movie-title">Interstellar</h3>
+                    <div class="movie-info">
+                        <span>2014</span>
+                        <div class="movie-rating">
+                            <i class="fas fa-star star-icon"></i> 8.7
+                        </div>
+                    </div>
+                    <div class="movie-genre">Adventure, Drama, Sci-Fi</div>
+                    <button class="watch-btn">Watch Now</button>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="https://i.imgur.com/7GmCxiC.jpg" alt="Movie" class="movie-poster">
+                <div class="movie-overlay">
+                    <h3 class="movie-title">The Batman</h3>
+                    <div class="movie-info">
+                        <span>2022</span>
+                        <div class="movie-rating">
+                            <i class="fas fa-star star-icon"></i> 8.3
+                        </div>
+                    </div>
+                    <div class="movie-genre">Action, Crime, Drama</div>
+                    <button class="watch-btn">Watch Now</button>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="https://i.imgur.com/zVfcp3r.jpg" alt="Movie" class="movie-poster">
+                <div class="movie-overlay">
+                    <h3 class="movie-title">Dune</h3>
+                    <div class="movie-info">
+                        <span>2021</span>
+                        <div class="movie-rating">
+                            <i class="fas fa-star star-icon"></i> 8.1
+                        </div>
+                    </div>
+                    <div class="movie-genre">Adventure, Drama, Sci-Fi</div>
+                    <button class="watch-btn">Watch Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- List View (Hidden by Default) -->
+<div class="movies-list" style="display: none;">
+    <div class="movie-list-item">
+        <img src="https://i.imgur.com/uwGMvyX.jpg" alt="Movie" class="list-poster">
+        <div class="list-content">
+            <h3 class="list-title">Interstellar</h3>
+            <div class="list-info">
+                <span>2014</span>
+                <div class="list-rating">
+                    <i class="fas fa-star star-icon"></i> 8.7
+                </div>
+            </div>
+            <div class="list-genre">Adventure, Drama, Sci-Fi</div>
+            <p class="list-description">A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.</p>
+            <button class="watch-btn">Watch Now</button>
+        </div>
+    </div>
+
+    <div class="movie-list-item">
+        <img src="https://i.imgur.com/zVfcp3r.jpg" alt="Movie" class="list-poster">
+        <div class="list-content">
+            <h3 class="list-title">Dune</h3>
+            <div class="list-info">
+                <span>2021</span>
+                <div class="list-rating">
+                    <i class="fas fa-star star-icon"></i> 8.1
+                </div>
+            </div>
+            <div class="list-genre">Adventure, Drama, Sci-Fi</div>
+            <p class="list-description">Paul Atreides leads nomadic tribes in a battle to control the desert planet Arrakis and its valuable spice.</p>
+            <button class="watch-btn">Watch Now</button>
+        </div>
+    </div>
+
+    <div class="movie-list-item">
+        <img src="https://i.imgur.com/7GmCxiC.jpg" alt="Movie" class="list-poster">
+        <div class="list-content">
+            <h3 class="list-title">The Batman</h3>
+            <div class="list-info">
+                <span>2022</span>
+                <div class="list-rating">
+                    <i class="fas fa-star star-icon"></i> 8.3
+                </div>
+            </div>
+            <div class="list-genre">Action, Crime, Drama</div>
+            <p class="list-description">Batman ventures into Gotham City's underworld when a sadistic killer leaves behind a trail of cryptic clues.</p>
+            <button class="watch-btn">Watch Now</button>
+        </div>
+    </div>
+
+    <div class="movie-list-item">
+        <img src="img/4.jpg" alt="Movie" class="list-poster">
+        <div class="list-content">
+            <h3 class="list-title">Inception</h3>
+            <div class="list-info">
+                <span>2010</span>
+                <div class="list-rating">
+                    <i class="fas fa-star star-icon"></i> 8.8
+                </div>
+            </div>
+            <div class="list-genre">Action, Sci-Fi, Thriller</div>
+            <p class="list-description">A thief who steals corporate secrets through dream-sharing is given a chance to have his criminal history erased.</p>
+            <button class="watch-btn">Watch Now</button>
+        </div>
+    </div>
+</div>
