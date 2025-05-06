@@ -112,6 +112,27 @@ const initDb = async () => {
             IF SQLCODE != -955 THEN RAISE; END IF;
         END;`);
 
+    await connection.execute(`
+          BEGIN
+            EXECUTE IMMEDIATE '
+              CREATE TABLE WebSeries (
+                wsid INT PRIMARY KEY,
+                title VARCHAR2(200),
+                gid INT,
+                release_year NUMBER(4),
+                language VARCHAR2(50),
+                rating NUMBER(3, 1), 
+                description CLOB,
+                FOREIGN KEY (gid) REFERENCES Genre(gid)
+              )';
+          EXCEPTION
+            WHEN OTHERS THEN
+              IF SQLCODE != -955 THEN
+                RAISE;
+              END IF;
+          END;
+        `);
+
     console.log("✅ Oracle SQL database initialized successfully!");
   } catch (err) {
     console.error("❌ Error creating Oracle SQL tables:", err);
