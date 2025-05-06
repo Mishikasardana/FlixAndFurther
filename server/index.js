@@ -138,6 +138,35 @@ app.get("/users", async (req, res) => {
     }
   });
 
+  // To fetch all series
+app.get("/series", async (req, res) => {
+  let conn;
+  try {
+    oracledb.fetchAsString = [oracledb.CLOB];
+    conn = await dbConnection();
+    const result = await conn.execute(
+      `SELECT * FROM WebSeries`,
+      [], // No bind parameters
+      { outFormat: oracledb.OUT_FORMAT_OBJECT } // <<< THIS LINE FIXES THE ERROR
+    );
+
+
+    console.log("Fetched Rows:", result.rows);
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error("Error fetching series: ", err);
+    res.status(500).send("Error fetching series: " + err.message);
+  } finally {
+    if (conn) {
+      try {
+        await conn.close();
+      } catch (closeErr) {
+        console.error("Error closing connection: ", closeErr);
+      }
+    }
+  }
+});
+
 // Fetch song sby movie id
 app.get("/songs/:movieId", async(req ,res) => {
   let conn;
@@ -179,6 +208,27 @@ app.get("/movies/:genreId", async (req, res) => {
       res.status(500).send("Error fetching movies by genre: " + err.message);
     }
 });
+
+app.get("/series/:genreId", async (req, res) => {
+  let conn;
+  try {
+      conn = await dbConnection();
+      oracledb.fetchAsString = [oracledb.CLOB];
+      const { genreId } = req.params;
+      const result = await conn.execute(
+        `SELECT * FROM WebSeries WHERE GID = :genreId`,
+        [genreId],
+        { outFormat: oracledb.OUT_FORMAT_OBJECT }
+      );
+  
+      res.status(200).json(result.rows);
+    } catch (err) {
+      console.error("Error fetching movies by genre: ", err);
+      res.status(500).send("Error fetching movies by genre: " + err.message);
+    }
+});
+
+
 
 // Listen to the port
 app.listen(port, () => {
