@@ -8,6 +8,8 @@ const oracledb = require("oracledb");
 const dbConnection = require("./config/dbConfig.js");
 const initDb = require("./models/initDb.js");
 
+
+
 // Setup Environment Variables
 require("dotenv").config();
 const port = process.env.PORT || 3000;
@@ -57,7 +59,7 @@ app.get("/movies", async (req, res) => {
     oracledb.fetchAsString = [oracledb.CLOB];
     conn = await dbConnection();
     const result = await conn.execute(
-      `SELECT MOVID, TITLE, GID, RELEASE_YEAR, LANGUAGE, RATING, DESCRIPTION, TAGS FROM Movies`,
+      `SELECT * FROM Movies`,
       [], // No bind parameters
       { outFormat: oracledb.OUT_FORMAT_OBJECT } // <<< THIS LINE FIXES THE ERROR
     );
@@ -79,6 +81,33 @@ app.get("/movies", async (req, res) => {
   }
 });
 
+app.get("/songs", async (req, res) => {
+  let conn;
+  try {
+    oracledb.fetchAsString = [oracledb.CLOB];
+    conn = await dbConnection();
+    const result = await conn.execute(
+      `SELECT * FROM Songs`,
+      [], // No bind parameters
+      { outFormat: oracledb.OUT_FORMAT_OBJECT } // <<< THIS LINE FIXES THE ERROR
+    );
+
+
+    console.log("Fetched Rows:", result.rows);
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error("Error fetching songs: ", err);
+    res.status(500).send("Error fetching songs: " + err.message);
+  } finally {
+    if (conn) {
+      try {
+        await conn.close();
+      } catch (closeErr) {
+        console.error("Error closing connection: ", closeErr);
+      }
+    }
+  }
+});
 
 // To fetch all users
 app.get("/users", async (req, res) => {
@@ -108,6 +137,48 @@ app.get("/users", async (req, res) => {
       }
     }
   });
+
+// Fetch song sby movie id
+app.get("/songs/:movieId", async(req ,res) => {
+  let conn;
+  try {
+      conn = await dbConnection();
+      oracledb.fetchAsString = [oracledb.CLOB];
+      const { movieId } = req.params;
+      const result = await conn.execute(
+        `
+              SELECT s.*, m.TITLE AS MOVIE_TITLE
+              FROM songs s, movies m
+              WHERE s.MOVID = m.MOVID AND m.MOVID = :movieId
+              `,
+        [movieId],
+        { outFormat: oracledb.OUT_FORMAT_OBJECT }
+      );
+      res.status(200).json(result.rows);
+    } catch (err) {
+      console.error("Error fetching songs by movies: ", err);
+      res.status(500).send("Error fetching songs by movies: " + err.message);
+    }
+})
+
+app.get("/movies/:genreId", async (req, res) => {
+  let conn;
+  try {
+      conn = await dbConnection();
+      oracledb.fetchAsString = [oracledb.CLOB];
+      const { genreId } = req.params;
+      const result = await conn.execute(
+        `SELECT MOVID, TITLE, GID, RELEASE_YEAR, LANGUAGE, RATING, DESCRIPTION FROM Movies WHERE GID = :genreId`,
+        [genreId],
+        { outFormat: oracledb.OUT_FORMAT_OBJECT }
+      );
+  
+      res.status(200).json(result.rows);
+    } catch (err) {
+      console.error("Error fetching movies by genre: ", err);
+      res.status(500).send("Error fetching movies by genre: " + err.message);
+    }
+});
 
 // Listen to the port
 app.listen(port, () => {
