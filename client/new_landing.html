@@ -40,7 +40,7 @@
         /* Navbar */
         .navbar {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Keep space between logo and right side */
             align-items: center;
             background: rgba(8, 7, 24, 0.95);
             backdrop-filter: blur(10px);
@@ -58,10 +58,18 @@
             height: auto;
         }
 
+        .nav-links-container {
+            display: flex;
+            align-items: center;
+            gap: 30px; /* Space between navigation links and profile */
+        }
+
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 30px;
+            gap: 20px; /* Space between individual nav links */
+            margin: 0; /* Reset default list margin */
+            padding: 0; /* Reset default list padding */
         }
 
         .nav-item {
@@ -126,7 +134,7 @@
             font-weight: 500;
         }
 
-        /* Search Bar (in Navbar) */
+        /* Search Bar */
         .search-container {
             position: relative;
             margin-right: 20px;
@@ -234,7 +242,7 @@
             transform: translateY(-3px);
         }
 
-        /* Filter Section (Now Category Pills) */
+        /* Filter Section */
         .filter-section {
             margin-top: 70px; /* Adjust to be below navbar */
             padding: 20px 5%;
@@ -500,6 +508,51 @@
 </head>
 
 <body>
+
+     <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="website_logo-removebg-preview.png" alt="FlixAndFurther Logo">
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        
+        <ul class="nav-links">
+            <li class="nav-item active">Home</li>
+            <li class="nav-item"><a href="movies.html">Movies</a></li>
+            <li class="nav-item"><a href="series.html">Series</a></li>
+        </ul>
+        
+        <div class="profile-container">
+            <img class="profile-pic" src="website_logo-removebg-preview.png" alt="Profile">
+            <span class="profile-text">Profile</span>
+            <i class="fas fa-caret-down"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <span class="hero-badge">New Release</span>
+            <h1 class="hero-title">Discover Your Next Favorite Story</h1>
+            <p class="hero-desc">Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV without paying more.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">
+                    <i class="fas fa-play"></i> Start Watching
+                </button>
+                <button class="btn btn-secondary">
+                    <i class="fas fa-info-circle"></i> Learn More
+                </button>
+            </div>
+        </div>
+    </section>
 
     <!-- Search and Filter Section -->
     <section class="filter-section">
