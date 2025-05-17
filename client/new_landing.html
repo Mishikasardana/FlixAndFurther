@@ -160,13 +160,13 @@
         /* Hero Section */
         .hero {
             position: relative;
-        height: 80vh;
-        margin-top: 70px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 0 8%;
-        overflow: hidden;
+            height: 80vh;
+            margin-top: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 8%;
+            overflow: hidden;
         }
 
         .hero::before {
@@ -197,7 +197,7 @@
             color: white;
         }
 
-
+        /* Buttons */
         .btn {
             display: flex;
             align-items: center;
@@ -234,414 +234,71 @@
             transform: translateY(-3px);
         }
 
-        /* Category Pills */
-        .category-container {
-            margin: 50px 5%;
-        }
-
-        .category-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 20px;
+        /* Filter Section */
+        .filter-section {
+            background: rgba(255, 255, 255, 0.03);
+            margin: 100px 5% 50px;
+            padding: 20px;
+            border-radius: 15px;
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
         }
 
-        .category-icon {
-            color: var(--primary);
-        }
-
-        .category-pills {
+        .filter-controls {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .pill {
-            padding: 8px 20px;
+        .filter-dropdown {
             background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
             border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
             font-size: 14px;
-            font-weight: 500;
-        }
-
-        .pill:hover, .pill.active {
-            background: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
-        }
-
-        .pill.active {
-            background: var(--primary);
-        }
-
-        /* Movie Section */
-        .section-heading {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0 5% 20px;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
-
-        .see-all {
-            color: var(--primary);
-            font-weight: 500;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
             transition: all 0.3s ease;
+            appearance: none;
+            padding-right: 30px;
+            position: relative;
+            cursor: pointer;
         }
 
-        .see-all:hover {
-            transform: translateX(5px);
+        .filter-dropdown::-ms-expand {
+            display: none;
         }
 
-        .movies-section {
-            padding: 50px 0;
+        .filter-dropdown::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--text-muted);
         }
 
-        .movie-slider {
+        .filter-dropdown:hover,
+        .filter-dropdown:focus {
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+
+        /* Dynamic Grids */
+        .movies-grid,
+        .series-grid {
             margin: 0 5%;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 25px;
         }
 
-        .movie-card {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
-
-        .movie-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .movie-poster {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            vertical-align: middle;
-        }
-
-        .movie-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 50px 20px 20px;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-            transition: all 0.3s ease;
-        }
-
-        .movie-card:hover .movie-overlay {
-            padding-bottom: 30px;
-        }
-
-        .movie-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .movie-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-
-        .movie-rating {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .star-icon {
-            color: #ffd700;
-        }
-
-        .watch-btn {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 0;
-            border-radius: 6px;
-            font-weight: 500;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            opacity: 0;
-            transform: translateY(10px);
-        }
-
-        .movie-card:hover .watch-btn {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .watch-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        /* Popular Section With Big Cards */
-        .featured-section {
-            padding: 50px 0;
-            background: linear-gradient(to bottom, var(--dark), var(--darker));
-        }
-
-        .featured-slider {
-            margin: 0 5%;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .featured-card {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            transition: all 0.4s ease;
-            cursor: pointer;
-            height: 400px;
-        }
-
-        .featured-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .featured-poster {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .featured-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 100px 25px 25px;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-        }
-
-        .featured-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .featured-info {
-            display: flex;
-            gap: 15px;
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-
-        .featured-desc {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .featured-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .featured-btn {
-            padding: 8px 20px;
-            border-radius: 6px;
-            font-weight: 500;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .play-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .play-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        .info-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-        }
-
-        .info-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Newsletter */
-        .newsletter {
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(138, 43, 226, 0.05));
-            margin: 0 5% 50px;
-            padding: 50px;
-            border-radius: 20px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .newsletter h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .newsletter p {
-            max-width: 600px;
-            margin: 0 auto 30px;
-            color: var(--text-muted);
-        }
-
-        .email-form {
-            display: flex;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .email-input {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 20px;
-            border-radius: 30px 0 0 30px;
-            color: white;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .email-input:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .submit-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0 30px;
-            border-radius: 0 30px 30px 0;
-            font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--darker);
-            padding: 60px 5% 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 30px;
-            height: 2px;
-            background: var(--primary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            transition: all 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-            padding-left: 5px;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            background: var(--primary);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* Animations */
+        /* Animation */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -664,22 +321,40 @@
             .navbar {
                 padding: 15px 20px;
             }
-            
-            .search-container, .nav-links {
+
+            .search-container,
+            .nav-links {
                 display: none;
             }
-            
+
             .hero {
                 height: 70vh;
                 padding: 0 5%;
             }
-            
+
             .hero-title {
                 font-size: 2.5rem;
             }
-            
-            .movie-slider, .featured-slider {
+
+            .movie-slider,
+            .featured-slider,
+            .movies-grid,
+            .series-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .filter-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+
+            .filter-dropdown {
+                width: 100%;
+            }
+
+            .search-input {
+                width: 100%;
             }
         }
 
@@ -687,27 +362,28 @@
             .hero {
                 height: 60vh;
             }
-            
+
             .hero-title {
                 font-size: 2rem;
             }
-            
+
             .hero-buttons {
                 flex-direction: column;
                 gap: 10px;
                 width: 100%;
             }
-            
+
             .newsletter {
                 padding: 30px 20px;
             }
-            
+
             .email-form {
                 flex-direction: column;
                 gap: 10px;
             }
-            
-            .email-input, .submit-btn {
+
+            .email-input,
+            .submit-btn {
                 width: 100%;
                 border-radius: 30px;
             }
