@@ -3,176 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login or Sign Up</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>FlixAndFurther - Sign In</title>
     <style>
-        .hero-bg {
-            background-image: url('https://assets.nflxext.com/ffe/siteui/vlv3/ab4b0b22-2ddf-4d48-ae88-c201ae0267e2/0efe6360-4f6d-4b10-beb6-81e0762cfe81/IN-en-20231030-popsignuptwoweeks-perspective_alpha_website_large.jpg'); 
-            background-size: cover;
-            background-position: center;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #8e44ad, #3498db);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .form-container {
+            display: flex;
+            overflow: hidden;
+        }
+        
+        .form {
+            width: 100%;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .signin-form {
+            transform: translateX(0);
+        }
+        
+        .signup-form {
+            transform: translateX(100%);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .active .signin-form {
+            transform: translateX(-100%);
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+        }
+        
+        .active .signup-form {
+            transform: translateX(0);
+            opacity: 1;
+            pointer-events: all;
+            position: relative;
+        }
+        
+        h1 {
+            color: #8e44ad;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 32px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            border-color: #8e44ad;
+            outline: none;
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #8e44ad;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #7d3c98;
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .forgot-password a {
+            color: #8e44ad;
+            text-decoration: none;
+        }
+        
+        .toggle-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .toggle-form {
+            color: #8e44ad;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .social-login {
+            margin-top: 25px;
+            text-align: center;
+        }
+        
+        .social-text {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+        
+        .social-icon img {
+            width: 24px;
+            height: 24px;
         }
     </style>
 </head>
-<body class="bg-gray-900">
-    <div class='h-screen w-full hero-bg'>
-        <header class='max-w-6xl mx-auto flex items-center justify-between p-4'>
-            <a href="/">
-                <img src='website_logo-removebg-preview.png' alt='logo' class='w-52' />
-            </a>
-        </header>
-
-        <div class='flex justify-center items-center mt-10 mx-3'>
-            <div class='w-full max-w-md p-8 space-y-6 bg-black/60 rounded-lg shadow-md'>
-                <h1 class='text-center text-white text-2xl font-bold mb-4'>Login or Sign Up</h1>
-
-                <form id="loginForm" class='space-y-4' onsubmit="handleLogin(event)">
-                    <div>
-                        <label for='loginEmail' class='text-sm font-medium text-gray-300 block'>
-                            Email
-                        </label>
-                        <input
-                            type='email'
-                            class='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring'
-                            placeholder='you@example.com'
-                            id='loginEmail'
-                            name='loginEmail'
-                            value=''
-                            onchange="setLoginEmail(event.target.value)"
-                        />
+<body>
+    <div class="container" id="container">
+        <div class="form-container">
+            <div class="form signin-form">
+                <h1>Sign In</h1>
+                
+                <div class="input-group">
+                    <label for="signin-email">Email or phone number</label>
+                    <input type="text" id="signin-email">
+                </div>
+                
+                <div class="input-group">
+                    <label for="signin-password">Password</label>
+                    <input type="password" id="signin-password">
+                </div>
+                
+                <button>Sign In</button>
+                
+                <div class="forgot-password">
+                    <a href="#">Forgot password?</a>
+                </div>
+                
+                <div class="toggle-container">
+                    <p>New to FlixAndFurther? <span class="toggle-form" id="show-signup">Sign up now</span></p>
+                </div>
+                
+                <div class="social-login">
+                    <p class="social-text">Or sign in with</p>
+                    <div class="social-icons">
+                        <div class="social-icon">
+                            <img src="/api/placeholder/24/24" alt="Facebook">
+                        </div>
+                        <div class="social-icon">
+                            <img src="/api/placeholder/24/24" alt="Google">
+                        </div>
+                        <div class="social-icon">
+                            <img src="/api/placeholder/24/24" alt="Apple">
+                        </div>
                     </div>
-
-                    <div>
-                        <label for='loginPassword' class='text-sm font-medium text-gray-300 block'>
-                            Password
-                        </label>
-                        <input
-                            type='password'
-                            class='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring'
-                            placeholder='••••••••'
-                            id='loginPassword'
-                            name='loginPassword'
-                            value=''
-                            onchange="setLoginPassword(event.target.value)"
-                        />
+                </div>
+            </div>
+            
+            <div class="form signup-form">
+                <h1>Sign Up</h1>
+                
+                <div class="input-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name">
+                </div>
+                
+                <div class="input-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email">
+                </div>
+                
+                <div class="input-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password">
+                </div>
+                
+                <div class="input-group">
+                    <label for="signup-confirm">Confirm Password</label>
+                    <input type="password" id="signup-confirm">
+                </div>
+                
+                <button>Create Account</button>
+                
+                <div class="toggle-container">
+                    <p>Already have an account? <span class="toggle-form" id="show-signin">Sign in</span></p>
+                </div>
+                
+                <div class="social-login">
+                    <p class="social-text">Or sign up with</p>
+                    <div class="social-icons">
+                        <div class="social-icon">
+                            <img src="/api/placeholder/24/24" alt="Facebook">
+                        </div>
+                        <div class="social-icon">
+                            <img src="/api/placeholder/24/24" alt="Google">
+                        </div>
+                        <div class="social-icon">
+                            <img src="/api/placeholder/24/24" alt="Apple">
+                        </div>
                     </div>
-
-                    <button
-                        class='w-full py-2 bg-red-600 text-white font-semibold rounded-md
-                        hover:bg-red-700
-                    '
-                        disabled='false'
-                    >
-                        Login
-                    </button>
-                </form>
-
-                <hr class="border-gray-700 my-6" />
-
-                <h2 class='text-center text-white text-xl font-bold mb-4'>Sign Up</h2>
-
-                <form id="signupForm" class='space-y-4' onsubmit="handleSignup(event)">
-                    <div>
-                        <label for='signupEmail' class='text-sm font-medium text-gray-300 block'>
-                            Email
-                        </label>
-                        <input
-                            type='email'
-                            class='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring'
-                            placeholder='you@example.com'
-                            id='signupEmail'
-                            name='signupEmail'
-                            value=''
-                            onchange="setSignupEmail(event.target.value)"
-                        />
-                    </div>
-
-                    <div>
-                        <label for='signupPassword' class='text-sm font-medium text-gray-300 block'>
-                            Password
-                        </label>
-                        <input
-                            type='password'
-                            class='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring'
-                            placeholder='••••••••'
-                            id='signupPassword'
-                            name='signupPassword'
-                            value=''
-                            onchange="setSignupPassword(event.target.value)"
-                        />
-                    </div>
-
-                    <button
-                        class='w-full py-2 bg-green-600 text-white font-semibold rounded-md
-                        hover:bg-green-700
-                    '
-                        disabled='false'
-                    >
-                        Sign Up
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-
+    
     <script>
-        let loginEmail = "";
-        let loginPassword = "";
-        let signupEmail = "";
-        let signupPassword = "";
-        let isLoggingIn = false;
-        let isSigningUp = false;
-        const landingPageUrl = "landing1.html";
-
-        const setLoginEmail = (value) => {
-            loginEmail = value;
-        };
-
-        const setLoginPassword = (value) => {
-            loginPassword = value;
-        };
-
-        const setSignupEmail = (value) => {
-            signupEmail = value;
-        };
-
-        const setSignupPassword = (value) => {
-            signupPassword = value;
-        };
-
-        const handleLogin = (e) => {
-            e.preventDefault();
-            isLoggingIn = true;
-            document.querySelector('#loginForm button').innerText = "Logging In...";
-            // Simulate a login request
-            setTimeout(() => {
-                isLoggingIn = false;
-                document.querySelector('#loginForm button').innerText = "Login";
-                const loginSuccess = true;
-                if (loginSuccess) {
-                    window.location.href = landingPageUrl;
-                } else {
-                    alert("Login failed. Please check your credentials.");
-                }
-            }, 2000);
-        };
-
-        const handleSignup = (e) => {
-            e.preventDefault();
-            isSigningUp = true;
-            document.querySelector('#signupForm button').innerText = "Signing Up...";
-            // Simulate a signup request
-            setTimeout(() => {
-                isSigningUp = false;
-                document.querySelector('#signupForm button').innerText = "Sign Up";
-                const signupSuccess = true;
-                if (signupSuccess) {
-                    alert("Sign up successful!");
-                    window.location.href = landingPageUrl;
-                } else {
-                    alert("Sign up failed. Please try again.");
-                }
-            }, 2000);
-        };
+        const container = document.getElementById('container');
+        const showSignUp = document.getElementById('show-signup');
+        const showSignIn = document.getElementById('show-signin');
+        
+        showSignUp.addEventListener('click', () => {
+            container.classList.add('active');
+        });
+        
+        showSignIn.addEventListener('click', () => {
+            container.classList.remove('active');
+        });
     </script>
 </body>
 </html>

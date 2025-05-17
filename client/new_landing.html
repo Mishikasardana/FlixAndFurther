@@ -44,7 +44,6 @@
             align-items: center;
             background: rgba(8, 7, 24, 0.95);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             padding: 15px 5%;
             position: fixed;
             width: 100%;
@@ -161,57 +160,43 @@
         /* Hero Section */
         .hero {
             position: relative;
-            height: 80vh;
-            margin-top: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 0 8%;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 30%, rgba(0, 0, 0, 0.2) 100%), url('https://i.imgur.com/KQbgJRF.jpg') center/cover no-repeat;
-            overflow: hidden;
+        height: 80vh;
+        margin-top: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 8%;
+        overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 30%, rgba(0, 0, 0, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
         }
 
         .hero-content {
             max-width: 600px;
             z-index: 2;
             animation: fadeInUp 1s ease;
+            color: white;
         }
 
-        .hero-badge {
-            display: inline-block;
-            background-color: var(--secondary);
-            color: #fff;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, white, #b3b3b3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-desc {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            color: var(--text-muted);
-            max-width: 90%;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
 
         .btn {
             display: flex;
@@ -731,213 +716,175 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">
-            <img src="website_logo-removebg-preview.png" alt="FlixAndFurther Logo">
-        </div>
-        
-        <div class="search-container">
+
+    <!-- Search and Filter Section -->
+    <section class="filter-section">
+        <div class="filter-controls">
             <input type="text" class="search-input" placeholder="Search...">
-            <i class="fas fa-search search-icon"></i>
-        </div>
-        
-        <ul class="nav-links">
-            <li class="nav-item active">Home</li>
-            <li class="nav-item"><a href="movies.html">Movies</a></li>
-            <li class="nav-item"><a href="series.html">Series</li>
-        </ul>
-        
-        <div class="profile-container">
-            <img class="profile-pic" src="website_logo-removebg-preview.png" alt="Profile">
-            <span class="profile-text">Profile</span>
-            <i class="fas fa-caret-down"></i>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <span class="hero-badge">New Release</span>
-            <h1 class="hero-title">Discover Your Next Favorite Story</h1>
-            <p class="hero-desc">Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV without paying more.</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary">
-                    <i class="fas fa-play"></i> Start Watching
-                </button>
-                <button class="btn btn-secondary">
-                    <i class="fas fa-info-circle"></i> Learn More
-                </button>
-            </div>
+            <select class="filter-dropdown genre-filter">
+                <option value="all">All Genres</option>
+                <option value="action">Action</option>
+                <option value="drama">Drama</option>
+                <option value="comedy">Comedy</option>
+                <option value="sci-fi">Sci-Fi</option>
+            </select>
+            <select class="filter-dropdown network-filter">
+                <option value="all">All Networks</option>
+                <option value="netflix">Netflix</option>
+                <option value="amazon">Amazon Prime</option>
+                <option value="hotstar">Hotstar</option>
+            </select>
+            <select class="filter-dropdown rating-filter">
+                <option value="all">All Ratings</option>
+                <option value="9">9+</option>
+                <option value="8">8+</option>
+                <option value="7">7+</option>
+            </select>
         </div>
     </section>
 
-    <!-- Category Pills -->
-    <section class="category-container">
-        <h2 class="category-title">
-            <i class="fas fa-compass category-icon"></i> Browse Categories
-        </h2>
-        <div class="category-pills">
-            <div class="pill active">All</div>
-            <div class="pill">Action</div>
-            <div class="pill">Comedy</div>
-            <div class="pill">Drama</div>
-            <div class="pill">Thriller</div>
-            <div class="pill">Sci-Fi</div>
-            <div class="pill">Horror</div>
-            <div class="pill">Romance</div>
-            <div class="pill">Anime</div>
-        </div>
-    </section>
-
-    <!-- Popular Movies Section -->
-    <section class="movies-section">
+    <!-- Dynamic Movies Grid -->
+    <section class="movies-section dynamic-section">
         <div class="section-heading">
-            <h2 class="section-title">Popular Now</h2>
-            <a href="#" class="see-all">See All <i class="fas fa-chevron-right"></i></a>
+            <h2 class="section-title">All Movies</h2>
         </div>
-        <div class="movie-slider">
-            <div class="movie-card">
-                <img src="trending/img1.webp" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">83</h3>
-                    <div class="movie-info">
-                        <span>2021</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 8.5
-                        </div>
-                    </div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="trending/img2.jpeg" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">Dark Desire</h3>
-                    <div class="movie-info">
-                        <span>2020</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 7.9
-                        </div>
-                    </div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="trending/img3.webp" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">F.R.I.E.N.D.S</h3>
-                    <div class="movie-info">
-                        <span>1994-2004</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 9.2
-                        </div>
-                    </div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="https://i.imgur.com/uwGMvyX.jpg" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">Inception</h3>
-                    <div class="movie-info">
-                        <span>2010</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 8.8
-                        </div>
-                    </div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-        </div>
+        <div class="movies-grid"></div>
     </section>
 
-    <!-- Featured Section With Big Cards -->
-    <section class="featured-section">
+    <!-- Dynamic Series Grid -->
+    <section class="series-section dynamic-section">
         <div class="section-heading">
-            <h2 class="section-title">Featured Originals</h2>
-            <a href="#" class="see-all">See All <i class="fas fa-chevron-right"></i></a>
+            <h2 class="section-title">All Series</h2>
         </div>
-        <div class="featured-slider">
-            <div class="featured-card">
-                <img src="https://i.imgur.com/1rVNi7T.jpg" alt="Featured" class="featured-poster">
-                <div class="featured-overlay">
-                    <h3 class="featured-title">Stranger Things</h3>
-                    <div class="featured-info">
-                        <span>2016-Present</span>
-                        <span>Sci-Fi/Horror</span>
-                        <span><i class="fas fa-star star-icon"></i> 8.7</span>
-                    </div>
-                    <p class="featured-desc">
-                        When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.
-                    </p>
-                    <div class="featured-buttons">
-                        <button class="featured-btn play-btn">
-                            <i class="fas fa-play"></i> Play
-                        </button>
-                        <button class="featured-btn info-btn">
-                            More Info
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="featured-card">
-                <img src="https://i.imgur.com/jWUBEOF.jpg" alt="Featured" class="featured-poster">
-                <div class="featured-overlay">
-                    <h3 class="featured-title">The Witcher</h3>
-                    <div class="featured-info">
-                        <span>2019-Present</span>
-                        <span>Fantasy/Drama</span>
-                        <span><i class="fas fa-star star-icon"></i> 8.3</span>
-                    </div>
-                    <p class="featured-desc">
-                        Geralt of Rivia, a solitary monster hunter, struggles to find his place in a world where people often prove more wicked than beasts.
-                    </p>
-                    <div class="featured-buttons">
-                        <button class="featured-btn play-btn">
-                            <i class="fas fa-play"></i> Play
-                        </button>
-                        <button class="featured-btn info-btn">
-                            More Info
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="series-grid"></div>
     </section>
 
-    <!-- New Releases -->
-    <section class="movies-section">
-        <div class="section-heading">
-            <h2 class="section-title">New Releases</h2>
-            <a href="#" class="see-all">See All <i class="fas fa-chevron-right"></i></a>
-        </div>
-        <div class="movie-slider">
-            <div class="movie-card">
-                <img src="https://i.imgur.com/7GmCxiC.jpg" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">The Batman</h3>
-                    <div class="movie-info">
-                        <span>2022</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 8.3
+    <!-- JavaScript Integration -->
+    <script>
+        const movies = [
+            {
+                title: "Inception",
+                year: "2010",
+                rating: 8.8,
+                genre: "sci-fi",
+                network: "netflix",
+                image: "trending/Inception_(2010)_theatrical_poster.jpg"
+            },
+            {
+                title: "John Wick",
+                year: "2014",
+                rating: 7.4,
+                genre: "action",
+                network: "amazon",
+                image: "trending/image3.jpg"
+            },
+            {
+                title: "The Dark Knight",
+                year: "2008",
+                rating: 9.0,
+                genre: "action",
+                network: "netflix",
+                image: "trending/image4.jpg"
+            }
+        ];
+
+        const series = [
+            {
+                title: "Stranger Things",
+                year: "2016",
+                rating: 8.7,
+                genre: "sci-fi",
+                network: "netflix",
+                image: "trending/strangerthings.jpg"
+            },
+            {
+                title: "The Boys",
+                year: "2019",
+                rating: 8.8,
+                genre: "action",
+                network: "amazon",
+                image: "trending/theboys.jpg"
+            },
+            {
+                title: "Game of Thrones",
+                year: "2011",
+                rating: 9.3,
+                genre: "drama",
+                network: "hotstar",
+                image: "trending/got.jpg"
+            }
+        ];
+
+        const movieGrid = document.querySelector('.movies-grid');
+        const seriesGrid = document.querySelector('.series-grid');
+
+        const genreFilter = document.querySelector('.genre-filter');
+        const networkFilter = document.querySelector('.network-filter');
+        const ratingFilter = document.querySelector('.rating-filter');
+        const searchInput = document.querySelector('.search-input');
+
+        function renderItems(data, grid) {
+            grid.innerHTML = '';
+            if (data.length === 0) {
+                grid.innerHTML = '<p>No results found.</p>';
+                return;
+            }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="movie-poster">
+                    <div class="movie-overlay">
+                        <h3 class="movie-title">${item.title}</h3>
+                        <div class="movie-info">
+                            <span>${item.year}</span>
+                            <div class="movie-rating">
+                                <i class="fas fa-star star-icon"></i> ${item.rating}
+                            </div>
                         </div>
+                        <button class="watch-btn">Watch Now</button>
                     </div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="https://i.imgur.com/zVfcp3r.jpg" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">Dune</h3>
-                    <div class="movie-info">
-                        <span>2021</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 8.1
-                        </div>
-                    </div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="https://i.imgur.com/tEwxOxh.jpg" alt="Movie"
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function applyFilters() {
+            const genre = genreFilter.value;
+            const network = networkFilter.value;
+            const minRating = ratingFilter.value === "all" ? 0 : parseFloat(ratingFilter.value);
+            const search = searchInput.value.toLowerCase();
+
+            const filteredMovies = movies.filter(item =>
+                (genre === 'all' || item.genre === genre) &&
+                (network === 'all' || item.network === network) &&
+                (item.rating >= minRating) &&
+                item.title.toLowerCase().includes(search)
+            );
+
+            const filteredSeries = series.filter(item =>
+                (genre === 'all' || item.genre === genre) &&
+                (network === 'all' || item.network === network) &&
+                (item.rating >= minRating) &&
+                item.title.toLowerCase().includes(search)
+            );
+
+            renderItems(filteredMovies, movieGrid);
+            renderItems(filteredSeries, seriesGrid);
+        }
+
+        // Initial Render
+        renderItems(movies, movieGrid);
+        renderItems(series, seriesGrid);
+
+        // Add Event Listeners
+        genreFilter.addEventListener('change', applyFilters);
+        networkFilter.addEventListener('change', applyFilters);
+        ratingFilter.addEventListener('change', applyFilters);
+        searchInput.addEventListener('input', applyFilters);
+    </script>
+
+</body>
+</html>
+    

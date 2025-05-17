@@ -160,6 +160,7 @@
         /* Header Banner */
         .series-header {
             position: relative;
+            overflow : hidden;
             height: 50vh;
             margin-top: 70px;
             display: flex;
@@ -190,6 +191,18 @@
             margin-bottom: 25px;
             color: var(--text-muted);
         }
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
 
         /* Filter Section */
         .filter-section {
@@ -700,25 +713,21 @@
         }
     </style>
 </head>
-
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">
             <img src="website_logo-removebg-preview.png" alt="FlixAndFurther Logo">
         </div>
-        
         <div class="search-container">
             <input type="text" class="search-input" placeholder="Search series...">
             <i class="fas fa-search search-icon"></i>
         </div>
-        
         <ul class="nav-links">
             <li class="nav-item"><a href="new_landing.html">Home</a></li>
             <li class="nav-item"><a href="movies.html">Movies</a></li>
             <li class="nav-item active">Series</li>
         </ul>
-        
         <div class="profile-container">
             <img class="profile-pic" src="website_logo-removebg-preview.png" alt="Profile">
             <span class="profile-text">Profile</span>
@@ -728,9 +737,10 @@
 
     <!-- Header Banner -->
     <section class="series-header">
+        <img src="website_logo.png" alt="TV Series Background" class="background-image">
         <div class="header-content">
-            <h1 class="header-title">Discover TV Series & Shows</h1>
-            <p class="header-desc">Binge-worthy television from classic shows to the hottest new releases.</p>
+            <h1 class="header-title">Explore Our TV Series Collection</h1>
+            <p class="header-desc">Discover a wide range of TV series from your favorite genres and all-time classics.</p>
         </div>
     </section>
 
@@ -741,27 +751,25 @@
                 <span class="filter-label">Genre:</span>
                 <select class="filter-dropdown">
                     <option value="all">All Genres</option>
-                    <option value="drama">Drama</option>
+                    <option value="action">Action</option>
                     <option value="comedy">Comedy</option>
-                    <option value="thriller">Thriller</option>
+                    <option value="drama">Drama</option>
+                    <option value="horror">Horror</option>
                     <option value="scifi">Sci-Fi</option>
-                    <option value="fantasy">Fantasy</option>
-                    <option value="crime">Crime</option>
+                    <option value="romance">Romance</option>
                 </select>
             </div>
-
             <div class="filter-group">
-                <span class="filter-label">Network:</span>
+                <span class="filter-label">Year:</span>
                 <select class="filter-dropdown">
-                    <option value="all">All Networks</option>
-                    <option value="netflix">Netflix</option>
-                    <option value="hbo">HBO</option>
-                    <option value="amazon">Amazon</option>
-                    <option value="disney">Disney+</option>
-                    <option value="hulu">Hulu</option>
+                    <option value="all">All Years</option>
+                    <option value="2020">2020s</option>
+                    <option value="2010">2010s</option>
+                    <option value="2000">2000s</option>
+                    <option value="1990">1990s</option>
+                    <option value="older">Older</option>
                 </select>
             </div>
-
             <div class="filter-group">
                 <span class="filter-label">Rating:</span>
                 <select class="filter-dropdown">
@@ -773,7 +781,6 @@
                     <option value="5">5+</option>
                 </select>
             </div>
-
             <div class="view-toggle">
                 <button class="view-btn active" id="grid-view">
                     <i class="fas fa-th"></i> Grid
@@ -783,271 +790,99 @@
                 </button>
             </div>
         </div>
-
-        <div class="filter-tags">
-            <div class="filter-tag">
-                Drama <i class="fas fa-times tag-close"></i>
-            </div>
-            <div class="filter-tag">
-                Netflix <i class="fas fa-times tag-close"></i>
-            </div>
-        </div>
     </section>
 
-    <!-- Series Container -->
+    <!-- TV Series Section -->
     <section class="series-container">
         <!-- Grid View -->
-        <div class="series-grid">
-            <div class="series-card">
-                <div class="season-badge">5 Seasons</div>
-                <img src="https://i.imgur.com/ZLyGu3m.jpg" alt="Series" class="series-poster">
-                <div class="series-overlay">
-                    <h3 class="series-title">Breaking Bad</h3>
-                    <div class="series-info">
-                        <span>2008-2013</span>
-                        <div class="series-rating">
-                            <i class="fas fa-star star-icon"></i> 9.5
-                        </div>
-                    </div>
-                    <div class="series-genre">Drama, Crime, Thriller</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="series-card">
-                <div class="season-badge">8 Seasons</div>
-                <img src="https://i.imgur.com/FdD9BLq.jpg" alt="Series" class="series-poster">
-                <div class="series-overlay">
-                    <h3 class="series-title">Game of Thrones</h3>
-                    <div class="series-info">
-                        <span>2011-2019</span>
-                        <div class="series-rating">
-                            <i class="fas fa-star star-icon"></i> 9.2
-                        </div>
-                    </div>
-                    <div class="series-genre">Drama, Fantasy, Adventure</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="series-card">
-                <div class="season-badge">4 Seasons</div>
-                <img src="https://i.imgur.com/8o1PTFD.jpg" alt="Series" class="series-poster">
-                <div class="series-overlay">
-                    <h3 class="series-title">Stranger Things</h3>
-                    <div class="series-info">
-                        <span>2016-Present</span>
-                        <div class="series-rating">
-                            <i class="fas fa-star star-icon"></i> 8.7
-                        </div>
-                    </div>
-                    <div class="series-genre">Drama, Fantasy, Horror</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="series-card">
-                <div class="season-badge">6 Seasons</div>
-                <img src="https://i.imgur.com/aTqHPYU.jpg" alt="Series" class="series-poster">
-                <div class="series-overlay">
-                    <h3 class="series-title">The Crown</h3>
-                    <div class="series-info">
-                        <span>2016-2023</span>
-                        <div class="series-rating">
-                            <i class="fas fa-star star-icon"></i> 8.6
-                        </div>
-                    </div>
-                    <div class="series-genre">Biography, Drama, History</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="series-card">
-                <div class="season-badge">3 Seasons</div>
-                <img src="https://i.imgur.com/HhOHQHB.jpg" alt="Series" class="series-poster">
-                <div class="series-overlay">
-                    <h3 class="series-title">The Mandalorian</h3>
-                    <div class="series-info">
-                        <span>2019-Present</span>
-                        <div class="series-rating">
-                            <i class="fas fa-star star-icon"></i> 8.7
-                        </div>
-                    </div>
-                    <div class="series-genre">Action, Adventure, Fantasy</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <!-- Additional Series -->
-            <div class="series-card">
-                <div class="season-badge">1 Season</div>
-                <img src="https://i.imgur.com/o3j1eTw.jpg" alt="Series" class="series-poster">
-                <div class="series-overlay">
-                    <h3 class="series-title">The Last of Us</h3>
-                    <div class="series-info">
-                        <span>2023-Present</span>
-                        <div class="series-rating">
-                            <i class="fas fa-star star-icon"></i> 8.8
-                        </div>
-                    </div>
-                    <div class="series-genre">Action, Adventure, Drama</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="series-card">
-                <div class="season-badge">2 Seasons</div>
-                <img src="https://i.imgur.com/xHO6VSt.jpg" alt="Series" class="series-poster">
-                <div class="series-overlay">
-                    <h3 class="series-title">The Witcher</h3>
-                    <div class="series-info">
-                        <span>2019-Present</span>
-                        <div class="series-rating">
-                            <i class="fas fa-star star-icon"></i> 8.2
-                        </div>
-                    </div>
-                    <div class="series-genre">Action, Adventure, Fantasy</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="series-card">
-                <div class="season-badge">6 Seasons</div>
-                <img src="https://i.imgur.com/RrRXyNy.jpg" alt="Series" class="series-poster">
-                <div class="series-overlay">
-                    <h3 class="series-title">Better Call Saul</h3>
-                    <div class="series-info">
-                        <span>2015-2022</span>
-                        <div class="series-rating">
-                            <i class="fas fa-star star-icon"></i> 8.9
-                        </div>
-                    </div>
-                    <div class="series-genre">Crime, Drama</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-        </div>
+        <div class="series-grid"></div>
 
-        <!-- List View (Hidden by Default) -->
-        <div class="series-list" style="display: none;">
-            <div class="series-list-item">
-                <img src="https://i.imgur.com/ZLyGu3m.jpg" alt="Series" class="list-poster">
-                <div class="list-content">
-                    <h3 class="list-title">Breaking Bad</h3>
-                    <div class="list-info">
-                        <span>2008–2013</span>
-                        <div class="list-rating">
-                            <i class="fas fa-star star-icon"></i> 9.5
-                        </div>
-                    </div>
-                    <div class="list-genre">Drama, Crime, Thriller</div>
-                    <p class="list-description">A chemistry teacher turned drug kingpin battles cancer and crime in Albuquerque.</p>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
+        <!-- List View -->
+        <div class="series-list" style="display: none;"></div>
+    </section>
 
-            <div class="series-list-item">
-                <img src="https://i.imgur.com/FdD9BLq.jpg" alt="Series" class="list-poster">
-                <div class="list-content">
-                    <h3 class="list-title">Game of Thrones</h3>
-                    <div class="list-info">
-                        <span>2011–2019</span>
-                        <div class="list-rating">
-                            <i class="fas fa-star star-icon"></i> 9.2
-                        </div>
-                    </div>
-                    <div class="list-genre">Drama, Fantasy, Adventure</div>
-                    <p class="list-description">Epic battles and political intrigue as families vie for the Iron Throne in Westeros.</p>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
+    <!-- JavaScript for Dynamic Search & Filter -->
+    <script>
+        const searchInput = document.querySelector('.search-input');
+        const dropdowns = document.querySelectorAll('.filter-dropdown');
 
-            <div class="series-list-item">
-                <img src="https://i.imgur.com/8o1PTFD.jpg" alt="Series" class="list-poster">
-                <div class="list-content">
-                    <h3 class="list-title">Stranger Things</h3>
-                    <div class="list-info">
-                        <span>2016–Present</span>
-                        <div class="list-rating">
-                            <i class="fas fa-star star-icon"></i> 8.7
-                        </div>
-                    </div>
-                    <div class="list-genre">Drama, Fantasy, Horror</div>
-                    <p class="list-description">A group of kids uncover supernatural mysteries in 1980s Indiana.</p>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
+        function fetchSeries() {
+            const search = searchInput.value;
+            const genre = dropdowns[0].value;
+            const year = dropdowns[1].value;
+            const rating = dropdowns[2].value;
 
-            <div class="series-list-item">
-                <img src="https://i.imgur.com/aTqHPYU.jpg" alt="Series" class="list-poster">
-                <div class="list-content">
-                    <h3 class="list-title">The Crown</h3>
-                    <div class="list-info">
-                        <span>2016–2023</span>
-                        <div class="list-rating">
-                            <i class="fas fa-star star-icon"></i> 8.6
-                        </div>
-                    </div>
-                    <div class="list-genre">Biography, Drama, History</div>
-                    <p class="list-description">The reign of Queen Elizabeth II and the events that shaped the second half of the 20th century.</p>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
+            fetch('/api/series', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ search, genre, year, rating }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const gridContainer = document.querySelector('.series-grid');
+                const listContainer = document.querySelector('.series-list');
+                gridContainer.innerHTML = '';
+                listContainer.innerHTML = '';
 
-            <div class="series-list-item">
-                <img src="https://i.imgur.com/HhOHQHB.jpg" alt="Series" class="list-poster">
-                <div class="list-content">
-                    <h3 class="list-title">The Mandalorian</h3>
-                    <div class="list-info">
-                        <span>2019–Present</span>
-                        <div class="list-rating">
-                            <i class="fas fa-star star-icon"></i> 8.7
+                data.forEach(series => {
+                    const gridCard = `
+                        <div class="series-card">
+                            <img src="${series.image}" alt="${series.title}" class="series-poster">
+                            <div class="series-overlay">
+                                <h3 class="series-title">${series.title}</h3>
+                                <div class="series-info">
+                                    <span>${series.year}</span>
+                                    <div class="series-rating"><i class="fas fa-star"></i> ${series.rating}</div>
+                                </div>
+                                <div class="series-genre">${series.genre}</div>
+                                <button class="watch-btn">Watch Now</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="list-genre">Action, Adventure, Fantasy</div>
-                    <p class="list-description">A lone bounty hunter in the outer reaches of the galaxy protects a mysterious child.</p>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
+                    `;
 
-            <div class="series-list-item">
-                <img src="https://i.imgur.com/o3j1eTw.jpg" alt="Series" class="list-poster">
-                <div class="list-content">
-                    <h3 class="list-title">The Last of Us</h3>
-                    <div class="list-info">
-                        <span>2023–Present</span>
-                        <div class="list-rating">
-                            <i class="fas fa-star star-icon"></i> 8.8
+                    const listCard = `
+                        <div class="series-list-item">
+                            <img src="${series.image}" alt="${series.title}" class="list-poster">
+                            <div class="list-content">
+                                <h3 class="list-title">${series.title}</h3>
+                                <div class="list-info">
+                                    <span>${series.year}</span>
+                                    <div class="list-rating"><i class="fas fa-star"></i> ${series.rating}</div>
+                                </div>
+                                <div class="list-genre">${series.genre}</div>
+                                <p class="list-description">${series.description || 'No description available.'}</p>
+                                <button class="watch-btn">Watch Now</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="list-genre">Action, Adventure, Drama</div>
-                    <p class="list-description">Survivors journey across a post-apocalyptic America overrun by fungal-infected humans.</p>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
+                    `;
 
-            <div class="series-list-item">
-                <img src="https://i.imgur.com/xHO6VSt.jpg" alt="Series" class="list-poster">
-                <div class="list-content">
-                    <h3 class="list-title">The Witcher</h3>
-                    <div class="list-info">
-                        <span>2019–Present</span>
-                        <div class="list-rating">
-                            <i class="fas fa-star star-icon"></i> 8.2
-                        </div>
-                    </div>
-                    <div class="list-genre">Action, Adventure, Fantasy</div>
-                    <p class="list-description">A monster hunter struggles to find his place in a world where people often prove more wicked than beasts.</p>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
+                    gridContainer.innerHTML += gridCard;
+                    listContainer.innerHTML += listCard;
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching series:', error);
+            });
+        }
 
-            <div class="series-list-item">
-                <img src="https://i.imgur.com/RrRXyNy.jpg" alt="Series" class="list-poster">
-                <div class="list-content">
-                    <h3 class="list-title">Better Call Saul</h3>
-                    <div class="list-info">
-                        <span>2015–2022</span>
-                        <div class="list-rating">
-                            <i class="fas fa-star star-icon"></i> 8.9
-                        </div>
-                    </div>
-                    <div class="list-genre">Crime, Drama</div>
-                    <p class="list-description">The transformation of Jimmy McGill into the sleazy lawyer Saul Goodman.</p>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-        </div>
+        // Event listeners
+        searchInput.addEventListener('input', fetchSeries);
+        dropdowns.forEach(drop => drop.addEventListener('change', fetchSeries));
+
+        document.getElementById('grid-view').addEventListener('click', () => {
+            document.querySelector('.series-grid').style.display = 'flex';
+            document.querySelector('.series-list').style.display = 'none';
+        });
+
+        document.getElementById('list-view').addEventListener('click', () => {
+            document.querySelector('.series-grid').style.display = 'none';
+            document.querySelector('.series-list').style.display = 'block';
+        });
+
+        // Initial fetch
+        fetchSeries();
+    </script>
+</body>
+</html>

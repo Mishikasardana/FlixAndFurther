@@ -191,6 +191,18 @@
             color: var(--text-muted);
         }
 
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
         /* Filter Section */
         .filter-section {
             padding: 30px 5%;
@@ -695,17 +707,15 @@
         <div class="logo">
             <img src="website_logo-removebg-preview.png" alt="FlixAndFurther Logo">
         </div>
-        
         <div class="search-container">
             <input type="text" class="search-input" placeholder="Search movies...">
             <i class="fas fa-search search-icon"></i>
         </div>
-        
         <ul class="nav-links">
             <li class="nav-item"><a href="new_landing.html">Home</a></li>
             <li class="nav-item active">Movies</li>
-            <li class="nav-item"><a href="series.html">Series</a></li>        </ul>
-        
+            <li class="nav-item"><a href="series.html">Series</a></li>
+        </ul>
         <div class="profile-container">
             <img class="profile-pic" src="website_logo-removebg-preview.png" alt="Profile">
             <span class="profile-text">Profile</span>
@@ -715,6 +725,7 @@
 
     <!-- Header Banner -->
     <section class="movies-header">
+        <img src="website_logo.png" alt="TV Series Background" class="background-image">
         <div class="header-content">
             <h1 class="header-title">Explore Our Movie Collection</h1>
             <p class="header-desc">Discover thousands of movies across all genres, from classics to the latest releases.</p>
@@ -736,7 +747,6 @@
                     <option value="romance">Romance</option>
                 </select>
             </div>
-
             <div class="filter-group">
                 <span class="filter-label">Year:</span>
                 <select class="filter-dropdown">
@@ -748,7 +758,6 @@
                     <option value="older">Older</option>
                 </select>
             </div>
-
             <div class="filter-group">
                 <span class="filter-label">Rating:</span>
                 <select class="filter-dropdown">
@@ -760,7 +769,6 @@
                     <option value="5">5+</option>
                 </select>
             </div>
-
             <div class="view-toggle">
                 <button class="view-btn active" id="grid-view">
                     <i class="fas fa-th"></i> Grid
@@ -770,199 +778,99 @@
                 </button>
             </div>
         </div>
-
-        <div class="filter-tags">
-            <div class="filter-tag">
-                Drama <i class="fas fa-times tag-close"></i>
-            </div>
-            <div class="filter-tag">
-                2020+ <i class="fas fa-times tag-close"></i>
-            </div>
-        </div>
     </section>
 
-    <!-- Movies Container -->
+    <!-- Movies Section -->
     <section class="movies-container">
         <!-- Grid View -->
-        <div class="movies-grid">
-            <div class="movie-card">
-                <img src="img/1.jpeg" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">Her</h3>
-                    <div class="movie-info">
-                        <span>2013</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 8.0
-                        </div>
-                    </div>
-                    <div class="movie-genre">Romance, Sci-Fi</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="img/2.jpeg" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">Star Wars</h3>
-                    <div class="movie-info">
-                        <span>1977</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 8.6
-                        </div>
-                    </div>
-                    <div class="movie-genre">Action, Adventure, Fantasy</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="img/3.jpg" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">Storm</h3>
-                    <div class="movie-info">
-                        <span>2022</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 7.5
-                        </div>
-                    </div>
-                    <div class="movie-genre">Action, Thriller</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="img/4.jpg" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">Inception</h3>
-                    <div class="movie-info">
-                        <span>2010</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 8.8
-                        </div>
-                    </div>
-                    <div class="movie-genre">Action, Sci-Fi, Thriller</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="img/5.jpg" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">The Dark Knight</h3>
-                    <div class="movie-info">
-                        <span>2008</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 9.0
-                        </div>
-                    </div>
-                    <div class="movie-genre">Action, Crime, Drama</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <!-- Additional Movies -->
-            <div class="movie-card">
-                <img src="https://i.imgur.com/uwGMvyX.jpg" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">Interstellar</h3>
-                    <div class="movie-info">
-                        <span>2014</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 8.7
-                        </div>
-                    </div>
-                    <div class="movie-genre">Adventure, Drama, Sci-Fi</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="https://i.imgur.com/7GmCxiC.jpg" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">The Batman</h3>
-                    <div class="movie-info">
-                        <span>2022</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 8.3
-                        </div>
-                    </div>
-                    <div class="movie-genre">Action, Crime, Drama</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="https://i.imgur.com/zVfcp3r.jpg" alt="Movie" class="movie-poster">
-                <div class="movie-overlay">
-                    <h3 class="movie-title">Dune</h3>
-                    <div class="movie-info">
-                        <span>2021</span>
-                        <div class="movie-rating">
-                            <i class="fas fa-star star-icon"></i> 8.1
-                        </div>
-                    </div>
-                    <div class="movie-genre">Adventure, Drama, Sci-Fi</div>
-                    <button class="watch-btn">Watch Now</button>
-                </div>
-            </div>
-        </div>
+        <div class="movies-grid"></div>
 
-        <!-- List View (Hidden by Default) -->
-<div class="movies-list" style="display: none;">
-    <div class="movie-list-item">
-        <img src="https://i.imgur.com/uwGMvyX.jpg" alt="Movie" class="list-poster">
-        <div class="list-content">
-            <h3 class="list-title">Interstellar</h3>
-            <div class="list-info">
-                <span>2014</span>
-                <div class="list-rating">
-                    <i class="fas fa-star star-icon"></i> 8.7
-                </div>
-            </div>
-            <div class="list-genre">Adventure, Drama, Sci-Fi</div>
-            <p class="list-description">A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.</p>
-            <button class="watch-btn">Watch Now</button>
-        </div>
-    </div>
+        <!-- List View -->
+        <div class="movies-list" style="display: none;"></div>
+    </section>
 
-    <div class="movie-list-item">
-        <img src="https://i.imgur.com/zVfcp3r.jpg" alt="Movie" class="list-poster">
-        <div class="list-content">
-            <h3 class="list-title">Dune</h3>
-            <div class="list-info">
-                <span>2021</span>
-                <div class="list-rating">
-                    <i class="fas fa-star star-icon"></i> 8.1
-                </div>
-            </div>
-            <div class="list-genre">Adventure, Drama, Sci-Fi</div>
-            <p class="list-description">Paul Atreides leads nomadic tribes in a battle to control the desert planet Arrakis and its valuable spice.</p>
-            <button class="watch-btn">Watch Now</button>
-        </div>
-    </div>
+    <!-- JavaScript for Dynamic Search & Filter -->
+    <script>
+        const searchInput = document.querySelector('.search-input');
+        const dropdowns = document.querySelectorAll('.filter-dropdown');
 
-    <div class="movie-list-item">
-        <img src="https://i.imgur.com/7GmCxiC.jpg" alt="Movie" class="list-poster">
-        <div class="list-content">
-            <h3 class="list-title">The Batman</h3>
-            <div class="list-info">
-                <span>2022</span>
-                <div class="list-rating">
-                    <i class="fas fa-star star-icon"></i> 8.3
-                </div>
-            </div>
-            <div class="list-genre">Action, Crime, Drama</div>
-            <p class="list-description">Batman ventures into Gotham City's underworld when a sadistic killer leaves behind a trail of cryptic clues.</p>
-            <button class="watch-btn">Watch Now</button>
-        </div>
-    </div>
+        function fetchMovies() {
+            const search = searchInput.value;
+            const genre = dropdowns[0].value;
+            const year = dropdowns[1].value;
+            const rating = dropdowns[2].value;
 
-    <div class="movie-list-item">
-        <img src="img/4.jpg" alt="Movie" class="list-poster">
-        <div class="list-content">
-            <h3 class="list-title">Inception</h3>
-            <div class="list-info">
-                <span>2010</span>
-                <div class="list-rating">
-                    <i class="fas fa-star star-icon"></i> 8.8
-                </div>
-            </div>
-            <div class="list-genre">Action, Sci-Fi, Thriller</div>
-            <p class="list-description">A thief who steals corporate secrets through dream-sharing is given a chance to have his criminal history erased.</p>
-            <button class="watch-btn">Watch Now</button>
-        </div>
-    </div>
-</div>
+            fetch('/api/movies', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ search, genre, year, rating }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const gridContainer = document.querySelector('.movies-grid');
+                const listContainer = document.querySelector('.movies-list');
+                gridContainer.innerHTML = '';
+                listContainer.innerHTML = '';
+
+                data.forEach(movie => {
+                    const gridCard = `
+                        <div class="movie-card">
+                            <img src="${movie.image}" alt="${movie.title}" class="movie-poster">
+                            <div class="movie-overlay">
+                                <h3 class="movie-title">${movie.title}</h3>
+                                <div class="movie-info">
+                                    <span>${movie.year}</span>
+                                    <div class="movie-rating"><i class="fas fa-star"></i> ${movie.rating}</div>
+                                </div>
+                                <div class="movie-genre">${movie.genre}</div>
+                                <button class="watch-btn">Watch Now</button>
+                            </div>
+                        </div>
+                    `;
+
+                    const listCard = `
+                        <div class="movie-list-item">
+                            <img src="${movie.image}" alt="${movie.title}" class="list-poster">
+                            <div class="list-content">
+                                <h3 class="list-title">${movie.title}</h3>
+                                <div class="list-info">
+                                    <span>${movie.year}</span>
+                                    <div class="list-rating"><i class="fas fa-star"></i> ${movie.rating}</div>
+                                </div>
+                                <div class="list-genre">${movie.genre}</div>
+                                <p class="list-description">${movie.description || 'No description available.'}</p>
+                                <button class="watch-btn">Watch Now</button>
+                            </div>
+                        </div>
+                    `;
+
+                    gridContainer.innerHTML += gridCard;
+                    listContainer.innerHTML += listCard;
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching movies:', error);
+            });
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', fetchMovies);
+        dropdowns.forEach(drop => drop.addEventListener('change', fetchMovies));
+
+        document.getElementById('grid-view').addEventListener('click', () => {
+            document.querySelector('.movies-grid').style.display = 'flex';
+            document.querySelector('.movies-list').style.display = 'none';
+        });
+
+        document.getElementById('list-view').addEventListener('click', () => {
+            document.querySelector('.movies-grid').style.display = 'none';
+            document.querySelector('.movies-list').style.display = 'block';
+        });
+
+        // Initial fetch
+        fetchMovies();
+    </script>
+</body>
+</html>
