@@ -789,88 +789,139 @@
         <div class="movies-list" style="display: none;"></div>
     </section>
 
-    <!-- JavaScript for Dynamic Search & Filter -->
     <script>
+        const moviesData = [
+            {
+                title: "Good Will Hunting",
+                year: "1997",
+                rating: 8.3,
+                genre: "drama",
+                language: "english",
+                network: "unknown", 
+                image: "trending\image1.jpg" 
+            },
+            {
+                title: "Notting Hill",
+                year: "1999",
+                rating: 7.1,
+                genre: "romance",
+                language: "english",
+                network: "unknown", 
+                image: "trending\image2.jpg" 
+            },
+            {
+                title: "John Wick",
+                year: "2014",
+                rating: 7.4,
+                genre: "action",
+                language: "english",
+                network: "unknown", 
+                image: "trending/image3" 
+            },
+            {
+                title: "The Matrix",
+                year: "1999",
+                rating: 8.7,
+                genre: "sci-fi",
+                language: "english",
+                network: "unknown", 
+                image: "trending\The_Matrix.jpg" 
+            },
+            {
+                title: "Interstellar",
+                year: "2014",
+                rating: 8.6,
+                genre: "sci-fi",
+                language: "english",
+                network: "unknown", 
+                image: "trending\image5.jpg" 
+            },
+            {
+                title: "Chup",
+                year: "2022",
+                rating: 7.5,
+                genre: "thriller",
+                language: "hindi",
+                network: "unknown", 
+                image: "trending\image5.jpg"
+            },
+            {
+                title: "Zindagi Na Milegi Dobara",
+                year: "2011",
+                rating: 8.2,
+                genre: "drama",
+                language: "hindi",
+                network: "unknown", 
+                image: "trending\Zindagi_Na_Milegi_Dobara.jpg" 
+            },
+            {
+                title: "Yeh Jawaani Hai Deewani",
+                year: "2013",
+                rating: 7.1,
+                genre: "romance",
+                language: "hindi",
+                network: "unknown", 
+                image: "trending\Yeh_jawani_hai_deewani.jpg" 
+            }
+        ];
+
+        const movieGrid = document.querySelector('.movies-grid');
+        const genreFilter = document.querySelector('.genre-filter');
+        const languageFilter = document.querySelector('.language-filter');
+        const ratingFilter = document.querySelector('.rating-filter');
         const searchInput = document.querySelector('.search-input');
-        const dropdowns = document.querySelectorAll('.filter-dropdown');
 
-        function fetchMovies() {
-            const search = searchInput.value;
-            const genre = dropdowns[0].value;
-            const year = dropdowns[1].value;
-            const rating = dropdowns[2].value;
+        function renderItems(data, grid) {
+            grid.innerHTML = '';
+            if (data.length === 0) {
+                grid.innerHTML = '<p>No results found.</p>';
+                return;
+            }
 
-            fetch('/api/movies', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ search, genre, year, rating }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                const gridContainer = document.querySelector('.movies-grid');
-                const listContainer = document.querySelector('.movies-list');
-                gridContainer.innerHTML = '';
-                listContainer.innerHTML = '';
-
-                data.forEach(movie => {
-                    const gridCard = `
-                        <div class="movie-card">
-                            <img src="${movie.image}" alt="${movie.title}" class="movie-poster">
-                            <div class="movie-overlay">
-                                <h3 class="movie-title">${movie.title}</h3>
-                                <div class="movie-info">
-                                    <span>${movie.year}</span>
-                                    <div class="movie-rating"><i class="fas fa-star"></i> ${movie.rating}</div>
-                                </div>
-                                <div class="movie-genre">${movie.genre}</div>
-                                <button class="watch-btn">Watch Now</button>
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="movie-poster">
+                    <div class="movie-overlay">
+                        <h3 class="movie-title">${item.title}</h3>
+                        <div class="movie-info">
+                            <span>${item.year}</span>
+                            <div class="movie-rating">
+                                <i class="fas fa-star star-icon"></i> ${item.rating}
                             </div>
                         </div>
-                    `;
-
-                    const listCard = `
-                        <div class="movie-list-item">
-                            <img src="${movie.image}" alt="${movie.title}" class="list-poster">
-                            <div class="list-content">
-                                <h3 class="list-title">${movie.title}</h3>
-                                <div class="list-info">
-                                    <span>${movie.year}</span>
-                                    <div class="list-rating"><i class="fas fa-star"></i> ${movie.rating}</div>
-                                </div>
-                                <div class="list-genre">${movie.genre}</div>
-                                <p class="list-description">${movie.description || 'No description available.'}</p>
-                                <button class="watch-btn">Watch Now</button>
-                            </div>
-                        </div>
-                    `;
-
-                    gridContainer.innerHTML += gridCard;
-                    listContainer.innerHTML += listCard;
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching movies:', error);
+                        <button class="watch-btn">Watch Now</button>
+                    </div>
+                `;
+                grid.appendChild(card);
             });
         }
 
-        // Event listeners
-        searchInput.addEventListener('input', fetchMovies);
-        dropdowns.forEach(drop => drop.addEventListener('change', fetchMovies));
+        function applyFilters() {
+            const genre = genreFilter.value;
+            const language = languageFilter.value;
+            const minRating = ratingFilter.value === "all" ? 0 : parseFloat(ratingFilter.value);
+            const search = searchInput.value.toLowerCase();
 
-        document.getElementById('grid-view').addEventListener('click', () => {
-            document.querySelector('.movies-grid').style.display = 'flex';
-            document.querySelector('.movies-list').style.display = 'none';
-        });
+            const filteredMovies = moviesData.filter(item =>
+                (genre === 'all' || item.genre.toLowerCase() === genre) &&
+                (language === 'all' || item.language.toLowerCase() === language) &&
+                (item.rating >= minRating) &&
+                item.title.toLowerCase().includes(search)
+            );
 
-        document.getElementById('list-view').addEventListener('click', () => {
-            document.querySelector('.movies-grid').style.display = 'none';
-            document.querySelector('.movies-list').style.display = 'block';
-        });
+            renderItems(filteredMovies, movieGrid);
+        }
 
-        // Initial fetch
-        fetchMovies();
+        // Initial Render
+        renderItems(moviesData, movieGrid);
+
+        // Add Event Listeners
+        genreFilter.addEventListener('change', applyFilters);
+        languageFilter.addEventListener('change', applyFilters);
+        ratingFilter.addEventListener('change', applyFilters);
+        searchInput.addEventListener('input', applyFilters);
     </script>
 </body>
 </html>
