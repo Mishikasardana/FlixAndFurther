@@ -19,6 +19,23 @@ const getMoviesByGenre = async (req, res) => {
   }
 };
 
+const getSeriesByGenre = async (req, res) => {
+  try {
+    const { genreId } = req.params;
+
+    const result = await conn.execute(
+      `SELECT * FROM WebSeries WHERE GID = :genreId`,
+      [genreId],
+      { outFormat: oracledb.OUT_FORMAT_OBJECT }
+    );
+
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error("Error fetching series by genre: ", err);
+    res.status(500).send("Error fetching series by genre: " + err.message);
+  }
+};
+
 const getMoviesByTags = async (req, res) => {
   try {
     const { tag } = req.params;
