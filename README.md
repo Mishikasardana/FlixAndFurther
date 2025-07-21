@@ -29,7 +29,7 @@ This full-stack web application merges video and audio content delivery with sma
 - Express.js
 
 ### Database
-- Oracle DB (via `oracledb` Node.js package)
+- Oracle DB (via oracledb Node.js package)
 
 
 
@@ -76,7 +76,7 @@ Open `client/index.html` in any browser. You can also serve it via:
 
 
 
-## 📡 API Endpoints Overview
+##  API Endpoints Overview
 
 | Method | Endpoint             | Description                      |
 |--------|----------------------|----------------------------------|
@@ -91,9 +91,9 @@ Open `client/index.html` in any browser. You can also serve it via:
 
 Combines:
 
-- **Content-based filtering** (genre, actors, director)
-- **Collaborative filtering** (likes/dislikes, user ratings)
-- **Platform filtering** (only shows content available to the user)
+- Content-based filtering (genre, actors, director)
+- Collaborative filtering (likes/dislikes, user ratings)
+- Platform filtering (only shows content available to the user)
 
 
 
@@ -101,36 +101,30 @@ Combines:
 
 | Page             | Description                              |
 |------------------|------------------------------------------|
-| `index.html`     | Landing page                             |
-| `movies.html`    | Movie listing page                       |
-| `series.html`    | Web series section                       |
-| `popular.html`   | Popular movies/series                    |
-| `new.html`       | New releases                             |
-| `login_page.html`| Login screen                             |
-| `sign-in.html`   | Sign up/registration                     |
-| `new_landing.html`| Redirect post login                     |
+|  index.html      | Landing page                             |
+|  movies.html     | Movie listing page                       |
+|  series.html     | Web series section                       |
+|  popular.html    | Popular movies/series                    |
+|  new.html        | New releases                             |
+|  login_page.html | Login screen                             |
+|  sign-in.html    | Sign up/registration                     |
+|  new_landing.html | Redirect post login                     |
 
 -
 
 
 ##  Future Roadmap
 
-- [ ]  Real-time search with autocomplete
-- [ ]  User mood-based recommendations
-- [ ]  Mobile responsive improvements
-- [ ]  Cloud hosting + DB deployment
+-  Real-time search with autocomplete
+-  User mood-based recommendations
+-  Mobile responsive improvements
+-  Cloud hosting + DB deployment
 
 
 
 ##  Contributing
 
 Feel free to fork and raise a pull request. Please document all new routes and modules.
-
-
-
-##  License
-
-Licensed under [MIT](LICENSE)
 
 
 
